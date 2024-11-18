@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 class UsuarioStore {
   nome = "";
@@ -10,7 +10,14 @@ class UsuarioStore {
       nome: observable,
       renda: observable,
       objetivoFinanceiro: observable,
+      defineDadosUsuario: action,
     });
+  }
+
+  defineDadosUsuario({ nome, renda, objetivoFinanceiro }) {
+    this.nome = nome;
+    this.renda = renda;
+    this.objetivoFinanceiro = objetivoFinanceiro;
   }
 }
 
