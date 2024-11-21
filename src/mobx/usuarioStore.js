@@ -61,6 +61,10 @@ class UsuarioStore {
     this.orcamentoDiario += valor;
   }
 
+  atualizaOrcamentoComSaldo(saldo) {
+    this.orcamentoDiario += parseFloat(saldo);
+  }
+
   get objetivoFinanceiroAtual() {
     if (!this.objetivosTipos[this.objetivoFinanceiro]) {
       return null;
