@@ -6,8 +6,11 @@ import { MoneyIcon } from "@components/Icones";
 import Label from "@components/Label";
 import Modal from "@components/Modal";
 import { SelectGroup, SelectOption } from "@components/Select";
+import { observer } from "mobx-react";
+import { useStoreContext } from "src/mobx/StoreContext";
 
-const TransacaoModal = ({ isOpen, onCloseModal }) => {
+const TransacaoModal = observer(({ isOpen, onCloseModal }) => {
+  const { transacoesStore, usuarioStore } = useStoreContext();
   const [novaTransacao, setNovaTransacao] = useState({
     nome: "",
     valor: 0,
@@ -17,6 +20,8 @@ const TransacaoModal = ({ isOpen, onCloseModal }) => {
   });
 
   const aoSubmeterFormModal = () => {
+    transacoesStore.adicionarTransacao(novaTransacao);
+    usuarioStore.atualizaOrcamentoDiario(novaTransacao);
     onCloseModal();
   };
 
@@ -106,6 +111,6 @@ const TransacaoModal = ({ isOpen, onCloseModal }) => {
       </Form>
     </Modal>
   );
-};
+});
 
 export default TransacaoModal;

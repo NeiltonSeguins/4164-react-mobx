@@ -5,8 +5,11 @@ import Transacao from "./Transacao/Transacao";
 import { Cartao, CartaoCabecalho } from "@components/Cartao";
 import Botao from "@components/Botao";
 import TransacaoModal from "./TransacaoModal";
+import { observer } from "mobx-react";
+import { useStoreContext } from "src/mobx/StoreContext";
 
-const Transacoes = ({ transacoes }) => {
+const Transacoes = observer(() => {
+  const { transacoesStore } = useStoreContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -22,7 +25,7 @@ const Transacoes = ({ transacoes }) => {
       <CartaoCabecalho>Movimentação financeira</CartaoCabecalho>
       <Container>
         <ListaMovimentacoes>
-          {transacoes.map((transacao) => (
+          {transacoesStore.transacoes.map((transacao) => (
             <Transacao key={transacao.id} transacao={transacao} />
           ))}
         </ListaMovimentacoes>
@@ -39,5 +42,5 @@ const Transacoes = ({ transacoes }) => {
       </Container>
     </Cartao>
   );
-};
+});
 export default Transacoes;
