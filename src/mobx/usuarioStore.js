@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable, reaction } from "mobx";
+import { makeAutoObservable, autorun, reaction } from "mobx";
 
 const DIAS_DO_MES = 30;
 
@@ -20,7 +20,7 @@ class UsuarioStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.#carregaDadosLocalStorage();
+    this.#carregarDoLocalStorage();
 
     autorun(() => {
       const userState = {
@@ -87,7 +87,7 @@ class UsuarioStore {
     return ((this.orcamentoDiario / meta) * 100).toFixed(2);
   }
 
-  #carregaDadosLocalStorage() {
+  #carregarDoLocalStorage() {
     const dados = localStorage.getItem("usuario");
 
     if (dados) {
@@ -99,7 +99,7 @@ class UsuarioStore {
         this.objetivoFinanceiro = objetivoFinanceiro;
         this.orcamentoDiario = orcamentoDiario;
       } catch (error) {
-        console.error("usuarioStore: carregarDadosLocalStorage", error);
+        console.error("UsuarioStore: carregarDadosDoLocalStorage", error);
       }
     }
   }
