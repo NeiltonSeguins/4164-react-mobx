@@ -1,4 +1,4 @@
-import { makeAutoObservable, autorun } from "mobx";
+import { makeAutoObservable, autorun, reaction } from "mobx";
 
 const DIAS_DO_MES = 30;
 
@@ -32,6 +32,11 @@ class UsuarioStore {
 
       localStorage.setItem("usuario", JSON.stringify(userState));
     });
+
+    reaction(
+      () => this.orcamentoDiario,
+      () => console.log("Orçamento diário atualizado")
+    );
   }
 
   defineDadosUsuario({ nome, renda, objetivoFinanceiro }) {
