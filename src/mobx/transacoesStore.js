@@ -25,7 +25,7 @@ class TransacoesStore {
           (valorAcumulado[transacao.categoria] || 0) +
           parseFloat(transacao.valor);
         return valorAcumulado;
-      });
+      }, {});
   }
 
   #carregarDoLocalStorage() {
