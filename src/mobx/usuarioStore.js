@@ -20,6 +20,7 @@ class UsuarioStore {
 
   constructor() {
     makeAutoObservable(this);
+    this.#carregarDoLocalStorage();
 
     autorun(() => {
       const userState = {
@@ -64,6 +65,23 @@ class UsuarioStore {
     }
 
     return ((this.orcamentoDiario / meta) * 100).toFixed(2);
+  }
+
+  #carregarDoLocalStorage() {
+    const dados = localStorage.getItem("usuario");
+
+    if (dados) {
+      try {
+        const { nome, renda, objetivoFinanceiro, orcamentoDiario } =
+          JSON.parse(dados);
+        this.nome = nome;
+        this.renda = renda;
+        this.objetivoFinanceiro = objetivoFinanceiro;
+        this.orcamentoDiario = orcamentoDiario;
+      } catch (error) {
+        console.error("UsuarioStore: carregarDadosDoLocalStorage", error);
+      }
+    }
   }
 }
 
