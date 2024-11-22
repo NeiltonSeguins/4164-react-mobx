@@ -14,6 +14,8 @@ import {
 } from "chart.js";
 
 import { Pie } from "react-chartjs-2";
+import { useStoreContext } from "src/mobx/StoreContext";
+import { observer } from "mobx-react";
 
 ChartJS.register(
   ArcElement,
@@ -30,11 +32,16 @@ export const AreaChart = styled.div`
   height: 50%;
 `;
 
-const BalancoFinanceiro = () => {
+const BalancoFinanceiro = observer(() => {
+  const { transacoesStore } = useStoreContext();
+  const categoriasAgrupadas = transacoesStore.gastosPorCategoria;
+
   const data = {
+    labels: Object.keys(categoriasAgrupadas),
     datasets: [
       {
         label: "Gastos por categoria",
+        data: Object.values(categoriasAgrupadas),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -73,5 +80,5 @@ const BalancoFinanceiro = () => {
       </CartaoCorpo>
     </Cartao>
   );
-};
+});
 export default BalancoFinanceiro;
